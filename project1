@@ -1,0 +1,79 @@
+#include <graphics.h> // 引入图形库头文件，使用graphics.h库
+#include <iostream>
+
+class Acontroller {
+public:
+    Acontroller(int width, int height) {
+        initgraph(width, height);
+    }
+    ~Acontroller() {
+        closegraph();
+    }
+    void setWindowSize(int width, int height) {
+        setbkcolor(WHITE);
+        cleardevice();
+        setviewport(0, 0, width, height);
+    }
+};
+class Apint {
+public:
+    int x, y;
+    Apint(int x = 0, int y = 0) : x(x), y(y) {}
+};
+class Color {
+public:
+    int R, G, B;
+    Color(int R = 0, int G = 0, int B = 0) : R(R), G(G), B(B) {}
+};
+class Circle {
+public:
+    Apint center;
+    int radius;
+    Color color;
+    Circle(Apint center = Apint(), int radius = 0, Color color = Color()) : center(center), radius(radius), color(color) {}
+    void draw() {
+        setcolor(EGERGB(color.R, color.G, color.B));
+        circle(center.x, center.y, radius);
+    }
+};
+class Area {
+public:
+    Apint topLeft, bottomRight;
+    Color color;
+    Area(Apint topLeft = Apint(), Apint bottomRight = Apint(), Color color = Color()) : topLeft(topLeft), bottomRight(bottomRight), color(color) {}
+    void draw() {
+        setcolor(EGERGB(color.R, color.G, color.B));
+        rectangle(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y);
+    }
+};
+class Triangle {
+public:
+    Apint p1, p2, p3;
+    Color color;
+    Triangle(Apint p1 = Apint(), Apint p2 = Apint(), Apint p3 = Apint(), Color color = Color()) : p1(p1), p2(p2), p3(p3), color(color) {}
+    void draw() {
+        setcolor(EGERGB(color.R, color.G, color.B));
+        line(p1.x, p1.y, p2.x, p2.y);
+        line(p2.x, p2.y, p3.x, p3.y);
+        line(p3.x, p3.y, p1.x, p1.y);
+        
+        
+    }
+};
+int main() {
+    Acontroller controller(800, 600);
+    //setfillstyle(SOLID_FILL, BLUE);
+    setbkcolor(WHITE);
+    cleardevice();
+    Circle c(Apint(400, 300), 100, Color(255, 0, 0));
+    c.draw();
+    Area a(Apint(100, 100), Apint(200, 200), Color(0, 255, 0));
+    a.draw();
+    Triangle t(Apint(300, 100), Apint(400, 200), Apint(500, 100), Color(0, 0, 255));
+    t.draw();
+    setfillcolor(EGERGB(200, 200, 200));
+    fillellipse(10,10,10,10);
+    getch();
+    return 0;
+    
+}
